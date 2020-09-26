@@ -10,7 +10,6 @@ logger = logging.getLogger(__name__)
 @app.route('/contact_trace', methods=['POST'])
 def contact_trace():
     data = request.get_json();
-
     def compareString(String1, String2):
         # return number of alteration and isNonSalient point
         # String1->String2,,,,, String1 is infected by String 2

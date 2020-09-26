@@ -50,7 +50,7 @@ def get_intercepts(geo):
     try:
         point_list = list(ring.intersection(extended_line))
     except:
-        point_list = ring.intersection(extended_line)
+        point_list = ring.intersection(extended_line).coords
 
     result = []
     for pair in point_list:
