@@ -5,8 +5,8 @@ from codeitsuisse import app
 
 logger = logging.getLogger(__name__)
 
-@app.route('/fruitbasket', methods=['POST'])
+@app.route('/dummy', methods=['POST'])
 def getdummy():
     data = request.get_json();
-    result = 260
-    return result
+    result = 200
+    return json.dumps(result)

@@ -7,12 +7,14 @@ from codeitsuisse import app
 import numpy as np
 import shapely
 import shapely.geometry
+
+
 logger = logging.getLogger(__name__)
 
 
 @app.route('/revisitgeometry', methods=['POST'])
 def get_intercepts():
-    geo = request.get_json();
+    geo = request.get_json()
     cord_list = []
     for point in geo.get('shapeCoordinates'):
         # print(point['x'], point['y'])
@@ -56,5 +58,5 @@ def get_intercepts():
     for pair in point_list:
         coords = pair.coords[0]
         result.append({"x": round(coords[0], 2), 'y': round(coords[1], 2)})
-
+    print(result)
     return json.dumps(result)
