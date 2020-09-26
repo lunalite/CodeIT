@@ -30,43 +30,55 @@ def contact_trace():
         ClusterWithWithOrigin.append(compareString(data.get("origin").get("genome"), i['genome']))
 
     result = []
-    if InfectedWithOrigin[0] <= 2:
-        if InfectedWithOrigin[1]:
-            result.append(data.get("infected").get("name") + " *-> " + data.get("origin").get("name"))
-        else:
-            result.append(data.get("infected").get("name") + " -> " + data.get("origin").get("name"))
-
     for i in range(len(InfectedWithClusterList)):
         if InfectedWithClusterList[i][0] <= 2:
             # already with cluster, check if it is with origin.
 
             if ClusterWithWithOrigin[i][0] <= 2:
-                # with origin
-                if ClusterWithWithOrigin[i][1]:
-                    # cluster got * or not
-                    if InfectedWithClusterList[i][1]:
-                        # ifected got * or not
-                        result.append(data.get("infected").get("name") + " *-> " + data.get("cluster")[i][
-                            'name'] + " *-> " + data.get("origin").get("name"))
+                # clutser with origin
+                if ClusterWithWithOrigin[i][0] == 0:
+                    # cluster is the same as origin
+                    if InfectedWithOrigin[1]:
+                        result.append(data.get("infected").get("name") + " *-> " + data.get("origin").get("name"))
+                        result.append(data.get("infected").get("name") + " *-> " + data.get("cluster")[i]['name'])
                     else:
-                        result.append(data.get("infected").get("name") + " -> " + data.get("cluster")[i][
-                            'name'] + " *-> " + data.get("origin").get("name"))
+                        result.append(data.get("infected").get("name") + " -> " + data.get("origin").get("name"))
+                        result.append(data.get("infected").get("name") + " -> " + data.get("cluster")[i]['name'])
+
                 else:
-                    if InfectedWithClusterList[i][1]:
-                        # ifected got * or not
-                        print("hi")
-                        result.append(data.get("infected").get("name") + " *-> " + data.get("cluster")[i][
-                            'name'] + " -> " + data.get("origin").get("name"))
+
+                    if ClusterWithWithOrigin[i][1]:
+                        # cluster got * or not
+                        if InfectedWithClusterList[i][1]:
+                            # ifected got * or not
+                            result.append(data.get("infected").get("name") + " *-> " + data.get("cluster")[i][
+                                'name'] + " *-> " + data.get("origin").get("name"))
+                        else:
+                            result.append(data.get("infected").get("name") + " -> " + data.get("cluster")[i][
+                                'name'] + " *-> " + data.get("origin").get("name"))
                     else:
-                        result.append(data.get("infected").get("name") + " -> " + data.get("cluster")[i][
-                            'name'] + " -> " + data.get("origin").get("name"))
-                # not with origin only infected and cluster
-            if InfectedWithClusterList[i][1]:
-                result.append(data.get("infected").get("name") + " *-> " + data.get("cluster")[i]['name'])
+                        if InfectedWithClusterList[i][1]:
+                            # ifected got * or not
+                            result.append(data.get("infected").get("name") + " *-> " + data.get("cluster")[i][
+                                'name'] + " -> " + data.get("origin").get("name"))
+                        else:
+                            result.append(data.get("infected").get("name") + " -> " + data.get("cluster")[i][
+                                'name'] + " -> " + data.get("origin").get("name"))
             else:
-                result.append(data.get("infected").get("name") + " -> " + data.get("cluster")[i]['name'])
+                # cluster and infected
+                if InfectedWithClusterList[i][1]:
+                    result.append(data.get("infected").get("name") + " *-> " + data.get("cluster")[i]['name'])
+                else:
+                    result.append(data.get("infected").get("name") + " -> " + data.get("cluster")[i]['name'])
+
+                # not with origin only infected and cluster
+        else:
+            if InfectedWithOrigin[0] <= 2:
+                if InfectedWithOrigin[1]:
+                    result.append(data.get("infected").get("name") + " *-> " + data.get("origin").get("name"))
+                else:
+                    result.append(data.get("infected").get("name") + " -> " + data.get("origin").get("name"))
             # check if the guy in cluster is also connected to the origin if it is origin ->clutser-infected, then only this,
-    
     return json.dump(result)
 
 
