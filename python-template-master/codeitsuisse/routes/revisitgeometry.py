@@ -6,12 +6,12 @@ from flask import request, jsonify
 from codeitsuisse import app
 import numpy as np
 import shapely
-
+import shapely.geometry
 logger = logging.getLogger(__name__)
 
 
 @app.route('/revisitgeometry', methods=['POST'])
-def get_intercepts(geo):
+def get_intercepts():
     geo = request.get_json();
     cord_list = []
     for point in geo.get('shapeCoordinates'):
